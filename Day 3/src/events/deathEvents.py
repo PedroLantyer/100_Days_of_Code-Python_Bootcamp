@@ -14,10 +14,13 @@ def landDeath(pissedOffNarator=False):
         exit(0)
 
     match deathCause:
-        case deathCause if deathCause >= 1 and deathCause < 30:
-            print("You fell into a hole")
+        case deathCause if deathCause >= 1 and deathCause < 30 :
+            gordonRamsay()
+            print("You f****** donkey, the meat's f****** raw!")
+            print("Gordon Ramsey continues to screen as he chops you into pieces")
         case deathCause if deathCause >= 30 and deathCause < 60:
-            print("You step on a land mine, which detonates blowing you into chunks")
+            drawRheaRipley()
+            print("Rhea Ripley is here, prepare your cheeks, because Mami is about to give a whole new meaning to the words Monday Night RAW")
         case deathCause if deathCause >= 60 and deathCause <= 99:
             drawDeathBySnuSnu()
             print("You get captured by the Amazons. DEATH BY SNU SNU")
