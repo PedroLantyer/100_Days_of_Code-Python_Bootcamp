@@ -16,7 +16,7 @@ class Auction:
     def setHighestBidder(self):
         try:
             if len(self.bidderArr) >= 1:
-                self.highestBidder = sorted(self.bidderArr, key=itemgetter("bidValue"), reverse=True)[0]
+                self.highestBidder = max(self.bidderArr, key=itemgetter("bidValue"))
 
         except Exception as err:
             print(err)
