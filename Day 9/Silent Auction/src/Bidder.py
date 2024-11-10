@@ -20,6 +20,7 @@ class Bidder:
                 break
 
     def uniqueIdCheck(self, id: int, bidderArr: list[dict]):
+        """Verifies if there are any duplicate Ids for Bidders"""
         try:
             for bidder in bidderArr:
                 if(bidder["id"] == id):
