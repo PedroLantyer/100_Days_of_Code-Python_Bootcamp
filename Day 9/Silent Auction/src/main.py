@@ -5,6 +5,7 @@ from Utils import *
 if __name__ == "__main__":
     auction = Auction()
 
+    print("Welcome to secret auction.")
     while True:
         currentBidder = Bidder()
         
