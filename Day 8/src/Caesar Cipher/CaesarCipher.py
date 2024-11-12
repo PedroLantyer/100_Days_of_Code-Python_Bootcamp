@@ -1,11 +1,11 @@
 import re as regexp
 
 class CaesarCipher:
-    mode: str = ""
-    message:str = ""
-    encodedMessage: str = ""
-    shiftNumber: int = -1
     def __init__(self):
+        self.mode: str = ""
+        self.message:str = ""
+        self.encodedMessage: str = ""
+        self.shiftNumber: int = -1
         pass
 
     def setMode(self):
