@@ -1,9 +1,7 @@
 import os
 
 def clearScreen():
-    if os.name.upper() == "NT":
-        os.system("cls")
-
+    os.system("cls") if os.name == "nt" else os.system("clear")
 def getContinue():
     while(True):
         print("Do you wanna try again?")
