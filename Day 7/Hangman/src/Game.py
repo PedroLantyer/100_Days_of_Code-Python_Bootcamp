@@ -4,17 +4,17 @@ from utils.util import *
 
 class Game:
     MAX_LIVES: int = 6
-    lives:int = MAX_LIVES
-    lettersTested:list[str] = []
-    word:str = ""
-    currentGuess: list[str] = []
-    username: str = ""
-    guessCount: int = 0
-    gameStart: int
-    gameEnd: int
-    gameLength: dict = {"hours": 0, "minutes": 0, "seconds": 0}
     
-    def __init__(self):
+    def __init__(self):    
+        self.lives:int = self.MAX_LIVES
+        self.lettersTested:list[str] = []
+        self.word:str = ""
+        self.currentGuess: list[str] = []
+        self.username: str = ""
+        self.guessCount: int = 0
+        self.gameStart: int
+        self.gameEnd: int
+        self.gameLength: dict = {"hours": 0, "minutes": 0, "seconds": 0}
         self.setWord()
         self.username = os.getlogin()
         self.gameStart = int(datetime.now().timestamp())

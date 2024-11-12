@@ -7,10 +7,11 @@ def clearScreen():
     os.system("cls") if os.name == "nt" else os.system("clear")
 
 class user:
-    play: str = ""
-    name: str = ""
-    score: int = 0
+    
     def __init__(self):
+        self.play: str = ""
+        self.name: str = ""
+        self.score: int = 0
         self.name = os.getlogin()
 
     def setUserPlay(self):
@@ -32,10 +33,9 @@ class user:
                     clearScreen()
 
 class computer:
-    play: str = ""
-    score: int = 0
-
     def __init__(self):
+        self.play: str = ""
+        self.score: int = 0
         pass
     
     def setComputerPlay(self):

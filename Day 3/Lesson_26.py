@@ -1,18 +1,14 @@
 import os
 
 def clearScreen():
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
-
+    os.system("cls") if os.name == "nt" else os.system("clear")
+    
 class Pizza:
-    size: str
-    hasPepperoni: bool
-    hasExtraCheese: bool
-    priceModifiers:list = [0,0,0]
     def __init__(self):
-        pass
+        self.size: str
+        self.hasPepperoni: bool
+        self.hasExtraCheese: bool
+        self.priceModifiers:list = [0,0,0]
 
     def setSize(self):
         try:
