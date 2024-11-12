@@ -1,10 +1,9 @@
 from operator import itemgetter
 
 class Auction:
-    bidderArr:list = []
-    highestBidder:dict[int, str, int | float] = {"id": 0, "name" : "", "bidValue": 0}
-
     def __init__(self):
+        self.bidderArr:list = []
+        self.highestBidder:dict[int, str, int | float] = {"id": 0, "name" : "", "bidValue": 0}
         pass
 
     def addBidder(self, bidder: dict[int, str, int | float]):

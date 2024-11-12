@@ -1,9 +1,6 @@
 import re as regex
 
 class Bidder:
-    name: str = ""
-    bidValue: int | float = 0
-
     def __init__(self):
         self.setName()
         self.setBid()
