@@ -1,10 +1,12 @@
 from Utils import clearScreen
 
-def promptPlayGame():
+def promptPlayGame(replayMessage: bool = False):
     """Asks the user if he wants to play"""
-    
     for i in range(5):
-        print("Do you want to play a game of Blackjack? Type \"Yes\" or \"No\"")
+        if(not replayMessage):
+            print("Do you want to play a game of Blackjack? Type \"Yes\" or \"No\"")
+        else:
+            print("Do you want to play again? Type \"Yes\" or \"No\"")
         userInput = input().strip().lower()
         
         match userInput:
@@ -20,6 +22,8 @@ def promptPlayGame():
                 else:
                     clearScreen()
                     print("Sorry I couldn't understand you", end="\n\n")
+
+    
 
 def promptGetOrPass():
     """Asks the user if he wants to get the card or pass"""

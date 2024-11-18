@@ -5,11 +5,12 @@ from Game import Game
 
 if __name__ == "__main__":
 
-    if(promptPlayGame() == False):
+    if(not promptPlayGame()):
         exit(0)
 
     game = Game()
     while True:    
+        userPassed = False
         if game.turn > 1:
             answer = promptGetOrPass()
             match answer:
@@ -19,6 +20,7 @@ if __name__ == "__main__":
                 case "PASS":
                     clearScreen()
                     game.addCards(False)
+                    userPassed = True #If the user passes, terminate the game after the computer draws it's cards
                 case _:
                     print("Got invalid answer to GET or PASS")
                     exit(1)
@@ -26,8 +28,8 @@ if __name__ == "__main__":
         game.getHands()
         game.setScores()
         
-        if(game.checkOver()):
+        if(game.checkOver() or userPassed):
             game.getWinner()
-            break
+            promptPlayGame()
 
         
