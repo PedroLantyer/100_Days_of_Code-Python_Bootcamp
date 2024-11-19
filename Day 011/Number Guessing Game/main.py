@@ -33,10 +33,12 @@ def promptReplay():
                 clearScreen()
                 return True
             case "no":
+                clearScreen()
                 print("Goodbye")
                 return False
             case _:
                 if(i == 4):
+                    clearScreen()
                     print("You seem to be having a hard time answering.")
                     print("I'll take that as a no.")
                     print("Goodbye")
@@ -47,11 +49,13 @@ def promptReplay():
 
 
 class Game:
+    LOWER_LIMIT: int = 1
+    UPPER_LIMIT: int = 100
+
     def __init__(self):
         print("Welcome to the Number Guessing Game!")
         self.setDifficulty()
         self.setNumber()
-        pass
 
     def setDifficulty(self) -> None:
         while True:
@@ -59,13 +63,13 @@ class Game:
             userInput = input().strip().lower()
             match userInput:
                 case "easy":
-                    self.difficulty = "easy"
+                    self.difficulty = "Easy"
                     self.lives = 10
                     self.MAX_LIVES = 10
                     clearScreen()
                     return
                 case "hard":
-                    self.difficulty = "hard"
+                    self.difficulty = "Hard"
                     self.lives = 5
                     self.MAX_LIVES = 5
                     clearScreen()
@@ -74,7 +78,7 @@ class Game:
                     print("Sorry, I couldn't understand. Try again", end="\n" * 2)
 
     def setNumber(self):
-        self.secretNumber = secrets.choice(range(1,100))
+        self.secretNumber = secrets.choice(range(self.LOWER_LIMIT,self.UPPER_LIMIT))
 
     def triggerWin(self):
         clearScreen()
@@ -82,6 +86,7 @@ class Game:
         print("YOU WIN!")
         print(f"Lives left: {self.lives}/{self.MAX_LIVES}")
         print(f"Number: {self.secretNumber}")
+        print(f"Difficulty: {self.difficulty}")
         print("*" * 30, end="\n" * 3)
 
     def triggerLoss(self):
@@ -89,6 +94,7 @@ class Game:
         print("*" * 30)
         print("YOU LOSE!")
         print(f"Number: {self.secretNumber}")
+        print(f"Difficulty: {self.difficulty}")
         print("*" * 30, end="\n" * 3)
 
 
@@ -98,6 +104,7 @@ class Game:
         Otherwise returns False
         """
 
+        print(f"Guess a number between {self.LOWER_LIMIT} and {self.UPPER_LIMIT}")
         print(f"You have {self.lives} attemps remaining to guess the number.")
         userInput = input("Make a guess: ").strip()
         
