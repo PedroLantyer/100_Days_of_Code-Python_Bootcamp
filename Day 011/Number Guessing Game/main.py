@@ -78,7 +78,7 @@ class Game:
                     print("Sorry, I couldn't understand. Try again", end="\n" * 2)
 
     def setNumber(self):
-        self.secretNumber = secrets.choice(range(self.LOWER_LIMIT,self.UPPER_LIMIT))
+        self.secretNumber = secrets.choice(range(self.LOWER_LIMIT,self.UPPER_LIMIT+1))
 
     def triggerWin(self):
         clearScreen()
