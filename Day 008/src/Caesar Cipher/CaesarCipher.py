@@ -1,17 +1,18 @@
 import re as regexp
 
-class CaesarCipher:
+
+class CaesarCypher:
     def __init__(self):
         self.mode: str = ""
-        self.message:str = ""
+        self.message: str = ""
         self.encodedMessage: str = ""
         self.shiftNumber: int = -1
         pass
 
-    def setMode(self):
+    def set_mode(self):
         while True:
-            userInput = input("type encode to encrypt, type decode to decypt:\n").strip().lower()
-            match userInput:
+            user_input = input("type encode to encrypt, type decode to decrypt:\n").strip().lower()
+            match user_input:
                 case "encode":
                     self.mode = "encode"
                     break
@@ -21,57 +22,57 @@ class CaesarCipher:
                 case _:
                     print("Invalid option", end="\n\n")
 
-    def setMessage(self):
+    def set_message(self):
         while True:
             print()
-            userInput = input("Type your message:\n")
-            hasNonAlpha = regexp.search("[^A-Za-z ]",userInput)
-            if(hasNonAlpha != None):
-                print("Ceaser Ciphers cannot contain non alpha values, please try again", end="\n\n")
+            user_input = input("Type your message:\n")
+            has_non_alpha = regexp.search("[^A-Za-z ]", user_input)
+            if has_non_alpha is not None:
+                print("Caesar Cyphers cannot contain non alpha values, please try again", end="\n\n")
             else:
-                match(self.mode):
+                match self.mode:
                     case "encode":
-                        self.message = userInput
+                        self.message = user_input
                     case "decode":
-                        self.encodedMessage = userInput
+                        self.encodedMessage = user_input
                     case _:
                         print("Invalid mode")
                         exit(1)
                 break
 
-    def setShiftNumber(self):
+    def set_shift_number(self):
         while True:
             print()
-            userInput = input("Type the shift number:\n")
-            isPositiveInt = regexp.search("[^0-9]", userInput)
-            if(isPositiveInt != None or int(userInput) < 0):
+            user_input = input("Type the shift number:\n")
+            is_positive_int = regexp.search("[^0-9]", user_input)
+            if is_positive_int is not None or int(user_input) < 0:
                 print("Shift number must be a positive or null integer")
             else:
-                self.shiftNumber = int(userInput)
-                if(self.shiftNumber > 25):
+                self.shiftNumber = int(user_input)
+                if self.shiftNumber > 25:
                     self.shiftNumber %= 26
                 break
 
-    def encodeMessage(self):
+    def encode_message(self):
         try:
-            if(self.shiftNumber < 0):
+            if self.shiftNumber < 0:
                 raise Exception("Invalid shift number")
 
             for char in self.message:
-                if(char == " "):
+                if char == " ":
                     self.encodedMessage += " "
                 else:
-                    asciiValue = ord(char)
-                    asciiValue += self.shiftNumber
-                    if(char.isupper()):
-                        if (asciiValue > 90):
-                            asciiValue -= 26
-                        self.encodedMessage += chr(asciiValue)
+                    ascii_value = ord(char)
+                    ascii_value += self.shiftNumber
+                    if char.isupper():
+                        if ascii_value > 90:
+                            ascii_value -= 26
+                        self.encodedMessage += chr(ascii_value)
                     
-                    elif(char.islower()):
-                        if(asciiValue > 122):
-                            asciiValue -= 26
-                        self.encodedMessage += chr(asciiValue)
+                    elif char.islower():
+                        if ascii_value > 122:
+                            ascii_value -= 26
+                        self.encodedMessage += chr(ascii_value)
 
             print()
             print(f"Encoded message:\n{self.encodedMessage}")
@@ -81,27 +82,27 @@ class CaesarCipher:
             print(err)
             return False
         
-    def decodeMessage(self):
+    def decode_message(self):
         try:
-            if(self.shiftNumber < 0):
+            if self.shiftNumber < 0:
                 raise Exception("Invalid shift number")
             
             for char in self.encodedMessage:
-                if(char == " "):
+                if char == " ":
                     self.message += " "
                 else:
-                    asciiValue = ord(char)
-                    asciiValue -= self.shiftNumber
+                    ascii_value = ord(char)
+                    ascii_value -= self.shiftNumber
                     
-                    if(char.isupper()):
-                        if(asciiValue < 65):
-                            asciiValue += 26
-                        self.message += chr(asciiValue)
+                    if char.isupper():
+                        if ascii_value < 65:
+                            ascii_value += 26
+                        self.message += chr(ascii_value)
                     
-                    elif(char.islower()):
-                        if(asciiValue < 97):
-                            asciiValue += 26
-                        self.message += chr(asciiValue)
+                    elif char.islower():
+                        if ascii_value < 97:
+                            ascii_value += 26
+                        self.message += chr(ascii_value)
             
             print()
             print(f"Decoded message:\n{self.message}")

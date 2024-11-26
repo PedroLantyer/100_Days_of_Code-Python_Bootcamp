@@ -1,13 +1,16 @@
 import secrets
 
+
 class Card:
     def __init__(self):
-        self.setCard()
-    
-    def setCard(self):
-        cardId = secrets.choice(range(1,13))
+        self.name = None
+        self.value = None
+        self.set_card()
 
-        match cardId:
+    def set_card(self):
+        card_id = secrets.choice(range(1, 13))
+
+        match card_id:
             case 1:
                 self.name = "Ace"
                 self.value = 11

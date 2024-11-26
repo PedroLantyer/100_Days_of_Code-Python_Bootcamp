@@ -2,108 +2,112 @@ import re as regexp
 import random
 from datetime import datetime
 
-def genPwd(upperCaseLetterCount:int, lowerCaseLetterCount:int, symbolCount:int, numCount:int):
+
+def gen_pwd(upper_case_letter_count: int, lower_case_letter_count: int, symbol_count: int, num_count: int):
     try:
-        countArr = [{"value" : upperCaseLetterCount, "type": "upper"}, 
-                    {"value": lowerCaseLetterCount, "type": "lower"}, 
-                    {"value": symbolCount, "type": "symbol"}, 
-                    {"value": numCount, "type": "num"}]
-        symbolArr = ("!", "#", "$", "%", "&")
-        charCount = 0
-        scrambleCount = 5
-        for dict in countArr:
-            charCount += dict["value"]
-        
-        pwd = []
-        pwdScrambled = ""
-        
-        while len(pwd) < charCount:
-            random.seed(datetime.now().timestamp() + (len(pwd) ** 2))
-            if(len(countArr) == 1):
+        count_arr = [{"value": upper_case_letter_count, "type": "upper"},
+                     {"value": lower_case_letter_count, "type": "lower"},
+                     {"value": symbol_count, "type": "symbol"},
+                     {"value": num_count, "type": "num"}]
+        symbol_tuple = ("!", "#", "$", "%", "&")
+        char_count = 0
+        scramble_count = 5
+        for dictionary in count_arr:
+            char_count += dictionary["value"]
+
+        new_password: list = []
+        password_scrambled = ""
+
+        while len(new_password) < char_count:
+            random.seed(datetime.now().timestamp() + (len(new_password) ** 2))
+            if len(count_arr) == 1:
                 index = 0
-            elif(len(countArr) > 1):
-                index = random.randint(0, len(countArr)-1)
+            elif len(count_arr) > 1:
+                index = random.randint(0, len(count_arr) - 1)
             else:
                 break
-            type = countArr[index]["type"]
+            type_of_element = count_arr[index]["type"]
 
-            if(countArr[index]["value"] == 0):
-                countArr.pop(index)
+            if count_arr[index]["value"] == 0:
+                count_arr.pop(index)
                 continue
-            
-            match type:
+
+            match type_of_element:
                 case "upper":
-                    pwd.append(chr(random.randint(65, 90)))
+                    new_password.append(chr(random.randint(65, 90)))
                 case "lower":
-                    pwd.append(chr(random.randint(97, 122)))
+                    new_password.append(chr(random.randint(97, 122)))
                 case "symbol":
-                    pwd.append(random.choice(symbolArr))
+                    new_password.append(random.choice(symbol_tuple))
                 case "num":
-                    pwd.append(chr(random.randint(48, 57)))
+                    new_password.append(chr(random.randint(48, 57)))
 
-            countArr[index]["value"] -= 1
-        
-        if(len(pwd) != charCount):
-            raise Exception("Couldn't generate password with correct length") 
+            count_arr[index]["value"] -= 1
 
-        for i in range(scrambleCount):
-            while len(pwdScrambled) < charCount:
-                random.seed(datetime.now().timestamp() + (len(pwdScrambled) ** 2))
-                index = random.randint(0, len(pwd)-1)
-                pwdScrambled += pwd[index]
-                pwd.pop(index)
-            if(i <= scrambleCount-1):
-                pwd = list(pwdScrambled)
+        if len(new_password) != char_count:
+            raise Exception("Couldn't generate password with correct length")
 
-        return pwdScrambled
-    
+        for i in range(scramble_count):
+            while len(password_scrambled) < char_count:
+                random.seed(datetime.now().timestamp() + (len(password_scrambled) ** 2))
+                index = random.randint(0, len(new_password) - 1)
+                password_scrambled += new_password[index]
+                new_password.pop(index)
+            if i <= scramble_count - 1:
+                new_password = list(password_scrambled)
+
+        return password_scrambled
+
     except Exception as err:
         print(err)
 
-def getUpperCaseLetterCount():
-    while True:
-        letterCount = input("How many upper case letters would you like in your password? ").strip()
-        if(regexp.search("[^0-9]", letterCount) != None): #checks if there are any non numbers present
-            print("Couldn't understand, please try again")
-        else:
-            return int(letterCount)
-        
-def getLowerCaseLetterCount():
-    while True:
-        letterCount = input("How many lower case letters would you like in your password? ").strip()
-        if(regexp.search("[^0-9]", letterCount) != None): #checks if there are any non numbers present
-            print("Couldn't understand, please try again")
-        else:
-            return int(letterCount)
 
-def getSymbolCount():
+def get_upper_case_letter_count():
     while True:
-        symbolCount = input("How many symbols would you like in your password? ").strip()
-        if(regexp.search("[^0-9]", symbolCount) != None):
+        letter_count = input("How many upper case letters would you like in your password? ").strip()
+        if regexp.search("[^0-9]", letter_count) is not None:  # Checks if there are any non numbers present
             print("Couldn't understand, please try again")
         else:
-            return int(symbolCount)
+            return int(letter_count)
 
-def getNumberCount():
+
+def get_lower_case_letter_count():
     while True:
-        numberCount = input("How many numbers would you like in your password? ").strip()
-        if(regexp.search("[^0-9]", numberCount) != None):
+        letter_count = input("How many lower case letters would you like in your password? ").strip()
+        if regexp.search("[^0-9]", letter_count) is not None:  # Checks if there are any non numbers present
             print("Couldn't understand, please try again")
-        return int(numberCount)
+        else:
+            return int(letter_count)
+
+
+def get_symbol_count():
+    while True:
+        symbol_count = input("How many symbols would you like in your password? ").strip()
+        if regexp.search("[^0-9]", symbol_count) is not None:
+            print("Couldn't understand, please try again")
+        else:
+            return int(symbol_count)
+
+
+def get_number_count():
+    while True:
+        number_count = input("How many numbers would you like in your password? ").strip()
+        if regexp.search("[^0-9]", number_count) is not None:
+            print("Couldn't understand, please try again")
+        return int(number_count)
+
 
 if __name__ == "__main__":
     print("Random password generator", end="\n\n")
-    
-    upperCaseLetterCount = getUpperCaseLetterCount()
-    lowerCaseLetterCount = getLowerCaseLetterCount()
-    symbolCount = getSymbolCount()
-    numCount = getNumberCount()
-    
-    pwd = genPwd(upperCaseLetterCount, lowerCaseLetterCount, symbolCount, numCount)
-    if(pwd == None):
+
+    upperCaseLetterCount = get_upper_case_letter_count()
+    lowerCaseLetterCount = get_lower_case_letter_count()
+    symbolCount = get_symbol_count()
+    numCount = get_number_count()
+
+    pwd = gen_pwd(upperCaseLetterCount, lowerCaseLetterCount, symbolCount, numCount)
+    if pwd is None:
         exit(1)
-    
+
     print(f"\nYour new password is:\n{pwd}")
     exit(0)
-
-    

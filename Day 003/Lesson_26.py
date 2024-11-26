@@ -1,19 +1,23 @@
 import os
 
-def clearScreen():
-    os.system("cls") if os.name == "nt" else os.system("clear")
-    
-class Pizza:
-    def __init__(self):
-        self.size: str
-        self.hasPepperoni: bool
-        self.hasExtraCheese: bool
-        self.priceModifiers:list = [0,0,0]
 
-    def setSize(self):
+def clear_screen():
+    os.system("cls") if os.name == "nt" else os.system("clear")
+
+
+class Pizza:
+
+    def __init__(self):
+        self.price: int = 0
+        self.hasExtraCheese: bool = False
+        self.size: str = ""
+        self.hasPepperoni = False
+        self.priceModifiers: list = [0, 0, 0]
+
+    def set_size(self):
         try:
-            userInput = input("What size pizza do you want? S, M or L: ")
-            match userInput.upper().strip():
+            user_input = input("What size pizza do you want? S, M or L: ")
+            match user_input.upper().strip():
                 case "S":
                     self.size = "Small"
                     self.priceModifiers[0] = 15
@@ -29,10 +33,10 @@ class Pizza:
             print(error)
             return False
 
-    def setHasPepperoni(self):
+    def set_has_pepperoni(self):
         try:
-            userInput = input("Do you want pepperoni on your pizza? Y or N: ")
-            match userInput.upper().strip():
+            user_input = input("Do you want pepperoni on your pizza? Y or N: ")
+            match user_input.upper().strip():
                 case "Y":
                     self.hasPepperoni = True
                 case "N":
@@ -42,11 +46,11 @@ class Pizza:
         except ValueError as error:
             print(error)
             return False
-        
-    def setHasExtraCheese(self):
+
+    def set_has_extra_cheese(self):
         try:
-            userInput = input("Do you want extra cheese on your pizza? Y or N: ")
-            match userInput.upper().strip():
+            user_input = input("Do you want extra cheese on your pizza? Y or N: ")
+            match user_input.upper().strip():
                 case "Y":
                     self.hasExtraCheese = True
                     self.priceModifiers[2] = 1
@@ -58,12 +62,12 @@ class Pizza:
         except ValueError as error:
             print(error)
             return False
-        
-    def setPrice(self):
+
+    def set_price(self):
         try:
-            self.price:int = 0
-            if(self.hasPepperoni):
-                if(self.size == "Small"): 
+            self.price: int = 0
+            if self.hasPepperoni:
+                if self.size == "Small":
                     self.priceModifiers[1] = 2
                 else:
                     self.priceModifiers[1] = 3
@@ -72,15 +76,15 @@ class Pizza:
         except Exception as error:
             print(error)
             return False
-    
-    def printBill(self):
+
+    def print_bill(self):
         try:
-            clearScreen()
+            clear_screen()
             print("*" * 30)
             print(f"1 {self.size} Pizza")
             print("Extra Cheese:", end=" ")
             print("Yes") if self.hasExtraCheese else print("No")
-            print("Pepperoni:", end= " ")
+            print("Pepperoni:", end=" ")
             print("Yes") if self.hasPepperoni else print("No")
             print(f"Total Bill: ${self.price:.2f}")
             print("*" * 30)
@@ -92,10 +96,10 @@ class Pizza:
 if __name__ == "__main__":
     print("Welcome to Python Pizza Deliveries!")
     pizzaObj = Pizza()
-    if(pizzaObj.setSize() != None or pizzaObj.setHasPepperoni() != None or pizzaObj.setHasExtraCheese() != None):
+    if (pizzaObj.set_size() is not None or pizzaObj.set_has_pepperoni() is not None or pizzaObj.set_has_extra_cheese()
+            is not None):
         exit(1)
-    if(pizzaObj.setPrice() != None or pizzaObj.printBill() != None):
+    if pizzaObj.set_price() is not None or pizzaObj.print_bill() is not None:
         exit(1)
-    
+
     exit(0)
-    

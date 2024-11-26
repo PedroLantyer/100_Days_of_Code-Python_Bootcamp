@@ -1,22 +1,24 @@
 import os
 
-def clearScreen():
+
+def clear_screen():
     os.system("cls") if os.name == "nt" else os.system("clear")
 
-def getContinue():
+
+def get_continue():
     for i in range(5):
         print()
-        userInput = input("Do you want to continue? Type \"Yes\" or \"No\" \n").strip().lower()
-        match userInput:
+        user_input = input("Do you want to continue? Type \"Yes\" or \"No\" \n").strip().lower()
+        match user_input:
             case "yes":
-                clearScreen()
+                clear_screen()
                 return True
             case "no":
                 print("Goodbye!")
                 return False
             case _:
-                if(i == 4):
+                if i == 4:
                     print("You seem to be having some trouble answering")
                     print("I'll consider that as a no")
                     return False
-                print("Sorry I couldn't understand. Try again", end= "\n")
+                print("Sorry I couldn't understand. Try again", end="\n")

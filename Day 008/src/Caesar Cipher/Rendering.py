@@ -1,4 +1,4 @@
-def renderTitle():
+def render_title():
     print("""
           
          ,adPPYba, ,adPPYYba,  ,adPPYba, ,adPPYba, ,adPPYYba, 8b,dPPYba,  

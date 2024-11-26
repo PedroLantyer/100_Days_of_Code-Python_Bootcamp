@@ -1,7 +1,7 @@
-#WIP
 
-def renderTitle():
+
+def render_title():
     print("Hangman")
 
-def renderCurrentGuess(currentGuess: list[str]):
+def render_current_guess(currentGuess: list[str]):
     print("".join(str(char) for char in currentGuess))

@@ -1,37 +1,40 @@
+import os.path
 import re as regexp
+
 from Game import Game
-from utils.util import *
+from utils.util import get_matches
 
 
 class InputHandler:
     def __init__(self):
         pass
 
-    def checkInputIsValid(self, userInput: str):
-        nonAlphaFound = regexp.search("[^A-Za-z]", userInput)
-        if(nonAlphaFound != None):
+    @staticmethod
+    def check_input_is_valid(user_input: str):
+        non_alpha_found = regexp.search("[^A-Za-z]", user_input)
+        if non_alpha_found is not None:
             return False
         return True
 
-    def getUserInput(self, gameObj: Game):
-        userInput = input("Please type a letter: ").upper().strip()
-        
-        if(len(userInput) != 1 or (not self.checkInputIsValid(userInput))):
+    def get_user_input(self, game_obj: Game):
+        user_input: str = input("Please type a letter: ").upper().strip()
+
+        if len(user_input) != 1 or not self.check_input_is_valid(user_input):
             print("Oh, that's not an option, bad luck buddy.")
-            gameObj.lives -= 1
-        
-        elif(userInput in gameObj.lettersTested):
+            game_obj.lives -= 1
+
+        elif user_input in game_obj.lettersTested:
             print("You already tried that letter")
-            gameObj.lives -= 1
-        
+            game_obj.lives -= 1
+
         else:
-            matches = getMatches(userInput, gameObj.word)
-            if(len(matches) == 0):
-                gameObj.lives -= 1
-                print(f"The letter {userInput} is not in the word")
+            matches = get_matches(user_input, game_obj.word)
+            if len(matches) == 0:
+                game_obj.lives -= 1
+                print(f"The letter {user_input} is not in the word")
             else:
                 for index in matches:
-                    gameObj.currentGuess[index] = userInput
-            gameObj.lettersTested.append(userInput)
-            
-        gameObj.guessCount += 1
+                    game_obj.currentGuess[index] = user_input
+            game_obj.lettersTested.append(user_input)
+
+        game_obj.guessCount += 1

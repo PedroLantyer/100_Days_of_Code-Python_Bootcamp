@@ -2,44 +2,44 @@ from datetime import datetime
 import random
 from utils.util import *
 
+
 class Game:
     MAX_LIVES: int = 6
-    
-    def __init__(self):    
-        self.lives:int = self.MAX_LIVES
-        self.lettersTested:list[str] = []
-        self.word:str = ""
+
+    def __init__(self):
+        self.lives: int = self.MAX_LIVES
+        self.lettersTested: list[str] = []
+        self.word: str = ""
         self.currentGuess: list[str] = []
         self.username: str = ""
         self.guessCount: int = 0
-        self.gameStart: int
-        self.gameEnd: int
+        self.gameStart: int = 0
+        self.gameEnd: int = 0
         self.gameLength: dict = {"hours": 0, "minutes": 0, "seconds": 0}
-        self.setWord()
+        self.set_word()
         self.username = os.getlogin()
         self.gameStart = int(datetime.now().timestamp())
 
-    def setWord(self):
-        #WIP
+    def set_word(self):
         random.seed(datetime.now().timestamp())
-        wordArr = ["RED", "BLACK", "YELLOW"]
-        self.word = random.choice(wordArr)
+        word_arr = ["RED", "BLACK", "YELLOW"]
+        self.word = random.choice(word_arr)
         self.currentGuess = list("_" * len(self.word))
 
-    def checkWinLoss(self):
-        if(self.lives <= 0):
-            self.triggerLoss()
+    def check_win_loss(self):
+        if self.lives <= 0:
+            self.trigger_loss()
             return True
-        if(not ("_" in self.currentGuess)):
-            self.triggerWin()
+        if not ("_" in self.currentGuess):
+            self.trigger_win()
             return True
         return False
 
-    def triggerWin(self):
-        clearScreen()
+    def trigger_win(self):
+        clear_screen()
         self.gameEnd = int(datetime.now().timestamp())
-        self.setGameLength()
-        
+        self.set_game_length()
+
         print()
         print(f"{"YOU WIN!": ^30}")
         print("*" * 30)
@@ -49,35 +49,35 @@ class Game:
         print(f"Word: {self.word.upper()}")
         print("*" * 30)
 
-    def triggerLoss(self):
-        clearScreen()
+    def trigger_loss(self):
+        clear_screen()
         self.gameEnd = int(datetime.now().timestamp())
-        self.setGameLength()
-        correctGuesses = (len(self.currentGuess) - len(getMatches("_", self.currentGuess)))
-        
+        self.set_game_length()
+        correct_guesses = (len(self.currentGuess) - len(get_matches("_", self.currentGuess)))
+
         print()
         print(f"{"You lose!": ^30}")
         print("*" * 30)
 
-        print(f"Duration:",end=" ")
-        if(self.gameLength["hours"] != 0):
+        print(f"Duration:", end=" ")
+        if self.gameLength["hours"] != 0:
             print(f"{self.gameLength["hours"]}h", end="")
-        if(self.gameLength["minutes"] != 0):
+        if self.gameLength["minutes"] != 0:
             print(f"{self.gameLength["minutes"]}h", end="")
         print(f"{self.gameLength["seconds"]}s")
 
-        print(f"Correct guesses: {correctGuesses}/{len(self.currentGuess)}")
+        print(f"Correct guesses: {correct_guesses}/{len(self.currentGuess)}")
         print("*" * 30)
 
-    def setGameLength(self):
-        timeDelta = int((self.gameEnd - self.gameStart))
-        if(timeDelta > 3600):
-            hours = int(timeDelta/3600)
+    def set_game_length(self):
+        time_delta = int((self.gameEnd - self.gameStart))
+        if time_delta > 3600:
+            hours = int(time_delta / 3600)
             self.gameLength["hours"] = hours
-            timeDelta -= (hours*3600)
-        if(timeDelta > 60):
-            minutes = int(timeDelta/60)
+            time_delta -= (hours * 3600)
+        if time_delta > 60:
+            minutes = int(time_delta / 60)
             self.gameLength["minutes"] = minutes
-            timeDelta -= (minutes*60)
-        if(timeDelta > 0):
-            self.gameLength["seconds"] = timeDelta
+            time_delta -= (minutes * 60)
+        if time_delta > 0:
+            self.gameLength["seconds"] = time_delta

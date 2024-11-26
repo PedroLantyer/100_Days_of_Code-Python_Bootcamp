@@ -1,26 +1,26 @@
 from decimal import *
-import re as regex
 
-def getTotalBillValue():
+
+def get_total_bill_value():
     try:
-        totalBillValue = float(input("What was the total bill? $").strip())
-        if(totalBillValue < 0):
+        total_bill_value = float(input("What was the total bill? $").strip())
+        if total_bill_value < 0:
             raise ValueError()
-        return totalBillValue
+        return total_bill_value
 
     except ValueError:
         print("That doesn't seem like a valid bill, try again.", end="\n\n")
         return None
 
     
-def getTipPercentage():
+def get_tip_percentage():
     try:
         print("How much tip would you like to give?")
-        tipPercentage = int(input("10%, 12%, 15%? ").strip())
+        tip_percent = int(input("10%, 12%, 15%? ").strip())
         
-        match tipPercentage:
+        match tip_percent:
             case 10 | 12 | 15:
-                return tipPercentage
+                return tip_percent
             case _:
                 raise ValueError
 
@@ -28,21 +28,24 @@ def getTipPercentage():
         print("That's not a valid tip, try again.", end="\n\n")
         return None
 
-def getPeopleCount():
+
+def get_people_count():
     try:
-        peopleCount = int(input("How many people to split the bill? ").strip())
-        if(peopleCount < 1):
+        count = int(input("How many people to split the bill? ").strip())
+        if count < 1:
             raise ValueError
-        return  peopleCount
+        return count
     
     except ValueError:
         print("That doesn't seem right to me, can you please repeat")
         return None
 
-def getTipPerPerson(billValue: float, tipPercentage: int, peopleCount: int):
+
+def get_tip_per_person(value: float, tip_percent: int, count: int):
     try:
-        tipValue = (Decimal(billValue) * (Decimal(1) + Decimal(tipPercentage) / Decimal(100))) / Decimal(peopleCount)
-        return tipValue
+        tip_value = ((Decimal(value) * (Decimal(1) + Decimal(tip_percent) / Decimal(100))) /
+                     Decimal(count))
+        return tip_value
     except Exception as err:
         print(err)
         return None
@@ -51,28 +54,23 @@ def getTipPerPerson(billValue: float, tipPercentage: int, peopleCount: int):
 if __name__ == "__main__":
     print("Welcome to the tip calculator!", end="\n\n")
     
-    while(True):
-        billValue = getTotalBillValue()
-        if(billValue != None):
+    while True:
+        bill_value = get_total_bill_value()
+        if bill_value is not None:
             break
 
-    while(True):
-        tipPercentage = getTipPercentage()
-        if(tipPercentage != None):
+    while True:
+        tip_percentage = get_tip_percentage()
+        if tip_percentage is not None:
             break
 
-    while(True):
-        peopleCount = getPeopleCount()
-        if(peopleCount != None):
+    while True:
+        people_count = get_people_count()
+        if people_count is not None:
             break
 
-    tipPerPerson = getTipPerPerson(billValue, tipPercentage, peopleCount)
-    if(tipPerPerson != None):
+    tipPerPerson = get_tip_per_person(bill_value, tip_percentage, people_count)
+    if tipPerPerson is not None:
         print(f"\nEach person should pay: ${tipPerPerson:.2f}")
         exit(0)
     exit(1)
-
-    
-
-    
-            

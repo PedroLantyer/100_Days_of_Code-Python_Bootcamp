@@ -1,12 +1,11 @@
 from events.Rendering import *
-from utils.util import *
 from events.InputHandler import InputHandler
 from Game import Game
 
 if __name__ == "__main__":
-    renderTitle()
+    render_title()
     gameObj = Game()
     inputHandlerObj = InputHandler()
-    while((not gameObj.checkWinLoss())):
-        renderCurrentGuess(gameObj.currentGuess)
-        inputHandlerObj.getUserInput(gameObj)
+    while not gameObj.check_win_loss():
+        render_current_guess(gameObj.currentGuess)
+        inputHandlerObj.get_user_input(gameObj)

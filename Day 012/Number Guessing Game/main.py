@@ -2,8 +2,9 @@ import secrets
 import re as regexp
 import os
 
-def printLogo():
-    #Raw string is often necessary for ascii art
+
+def print_logo():
+    # Raw string is often necessary for ascii art
     print(r"""
  _   _                 _                                           _             
 | \ | |               | |                                         (_)            
@@ -16,29 +17,31 @@ def printLogo():
  
           """)
 
-def clearScreen():
+
+def clear_screen():
     """Clears the terminal"""
     os.system("cls") if os.name == "nt" else os.system("clear")
 
-def promptReplay():
+
+def prompt_replay():
     """
     Ask the user if he wishes to replay the game
     """
-    
+
     for i in range(5):
         print("Do you want to play again? ")
-        userInput = input("Type \"yes\" or \"no\": ").strip().lower()
-        match userInput:
+        user_input = input("Type \"yes\" or \"no\": ").strip().lower()
+        match user_input:
             case "yes":
-                clearScreen()
+                clear_screen()
                 return True
             case "no":
-                clearScreen()
+                clear_screen()
                 print("Goodbye")
                 return False
             case _:
-                if(i == 4):
-                    clearScreen()
+                if i == 4:
+                    clear_screen()
                     print("You seem to be having a hard time answering.")
                     print("I'll take that as a no.")
                     print("Goodbye")
@@ -53,52 +56,55 @@ class Game:
     UPPER_LIMIT: int = 100
 
     def __init__(self):
+        self.max_lives: int = 0
+        self.lives: int = 0
+        self.difficulty: str = ""
+        self.secret_number: int = 0
         print("Welcome to the Number Guessing Game!")
-        self.setDifficulty()
-        self.setNumber()
+        self.set_difficulty()
+        self.set_number()
 
-    def setDifficulty(self) -> None:
+    def set_difficulty(self) -> None:
         while True:
             print("Choose a difficulty. Type \"easy\" or \"hard\"")
-            userInput = input().strip().lower()
-            match userInput:
+            user_input = input().strip().lower()
+            match user_input:
                 case "easy":
                     self.difficulty = "Easy"
                     self.lives = 10
-                    self.MAX_LIVES = 10
-                    clearScreen()
+                    self.max_lives = 10
+                    clear_screen()
                     return
                 case "hard":
                     self.difficulty = "Hard"
                     self.lives = 5
-                    self.MAX_LIVES = 5
-                    clearScreen()
+                    self.max_lives = 5
+                    clear_screen()
                     return
                 case _:
                     print("Sorry, I couldn't understand. Try again", end="\n" * 2)
 
-    def setNumber(self):
-        self.secretNumber = secrets.choice(range(self.LOWER_LIMIT,self.UPPER_LIMIT+1))
+    def set_number(self):
+        self.secret_number = secrets.choice(range(self.LOWER_LIMIT, self.UPPER_LIMIT + 1))
 
-    def triggerWin(self):
-        clearScreen()
+    def trigger_win(self):
+        clear_screen()
         print("*" * 30)
         print("YOU WIN!")
-        print(f"Lives left: {self.lives}/{self.MAX_LIVES}")
-        print(f"Number: {self.secretNumber}")
+        print(f"Lives left: {self.lives}/{self.max_lives}")
+        print(f"Number: {self.secret_number}")
         print(f"Difficulty: {self.difficulty}")
         print("*" * 30, end="\n" * 3)
 
-    def triggerLoss(self):
-        clearScreen()
+    def trigger_loss(self):
+        clear_screen()
         print("*" * 30)
         print("YOU LOSE!")
-        print(f"Number: {self.secretNumber}")
+        print(f"Number: {self.secret_number}")
         print(f"Difficulty: {self.difficulty}")
         print("*" * 30, end="\n" * 3)
 
-
-    def makePlay(self):
+    def make_play(self):
         """
         Returns True if the game is over.\n
         Otherwise returns False
@@ -106,33 +112,32 @@ class Game:
 
         print(f"Guess a number between {self.LOWER_LIMIT} and {self.UPPER_LIMIT}")
         print(f"You have {self.lives} attemps remaining to guess the number.")
-        userInput = input("Make a guess: ").strip()
-        
-        if(regexp.search("[^0-9]", userInput) != None or len(userInput) == 0):
+        user_input = input("Make a guess: ").strip()
+
+        if regexp.search("[^0-9]", user_input) is not None or len(user_input) == 0:
             print("That's not a number.", end="\n" * 2)
             self.lives -= 1
         else:
-            guess = int(userInput)
-            if(guess == self.secretNumber):
-                self.triggerWin()
+            guess = int(user_input)
+            if guess == self.secret_number:
+                self.trigger_win()
                 return True
             else:
-                print("Too Low.") if guess < self.secretNumber else print("Too High.")
+                print("Too Low.") if guess < self.secret_number else print("Too High.")
                 print("Guess Again.", end="\n" * 2)
                 self.lives -= 1
-        
-        if(self.lives <= 0):
-            self.triggerLoss()
+
+        if self.lives <= 0:
+            self.trigger_loss()
             return True
         return False
-                
 
 
 if __name__ == "__main__":
     while True:
-        printLogo()
+        print_logo()
         gameObj = Game()
-        while(not gameObj.makePlay()):
-            pass #Continue playing while the game isn't over
-        if(not promptReplay()):
+        while not gameObj.make_play():
+            pass  # Continue playing while the game isn't over
+        if not prompt_replay():
             exit(0)

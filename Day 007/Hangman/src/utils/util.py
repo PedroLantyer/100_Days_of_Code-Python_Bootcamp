@@ -1,11 +1,13 @@
 import os
 
-def clearScreen():
+
+def clear_screen():
     os.system("cls") if os.name == "nt" else os.system("clear")
 
-def getMatches(char: str, word: list[str] | str):
-    matchIds = []
+
+def get_matches(char: str, word: list[str] | str):
+    match_ids = []
     for i in range(len(word)):
-        if(word[i] == char):
-            matchIds.append(i)
-    return matchIds
+        if word[i] == char:
+            match_ids.append(i)
+    return match_ids

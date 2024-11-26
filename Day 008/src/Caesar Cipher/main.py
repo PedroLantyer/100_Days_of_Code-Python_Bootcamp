@@ -1,28 +1,28 @@
-from CaesarCipher import CaesarCipher
+from CaesarCipher import CaesarCypher
 from Utils import *
-from Rendering import renderTitle
+from Rendering import render_title
 
 
 if __name__ == "__main__":
     while True:
-        renderTitle()
-        cipherObj = CaesarCipher()
-        cipherObj.setMode()
-        cipherObj.setMessage()
-        cipherObj.setShiftNumber()
+        render_title()
+        cipherObj = CaesarCypher()
+        cipherObj.set_mode()
+        cipherObj.set_message()
+        cipherObj.set_shift_number()
         
         match cipherObj.mode:
             case "encode":
-                success = cipherObj.encodeMessage()
-                if(not success):
+                success = cipherObj.encode_message()
+                if not success:
                     exit(1)
             case "decode":
-                success = cipherObj.decodeMessage()
-                if(not success):
+                success = cipherObj.decode_message()
+                if not success:
                     exit(1)
             case _:
                 print("Invalid Mode")
                 exit(1)
         
-        if(not getContinue()):
+        if not get_continue():
             exit(0)
