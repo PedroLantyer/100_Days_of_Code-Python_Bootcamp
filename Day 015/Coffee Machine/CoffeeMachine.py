@@ -20,6 +20,7 @@ class CoffeeMachine:
         self.money: Decimal = Decimal("0")
         self.set_money()
         self.prices: list = []
+        self.coffee_flavours: list = []
         for element in coffee:
             self.prices.append(element["price"])
 
@@ -66,15 +67,15 @@ class CoffeeMachine:
             print(err)
             return False
 
-    def get_menu(self):
+    @staticmethod
+    def get_menu():
         """
         Prints the menu
         """
         print("*" * 45)
         print("Menu:")
-        print(f"1. Espresso   - {self.prices[0]: .2f}USD")
-        print(f"2. Latte      - {self.prices[1]: .2f}USD")
-        print(f"3. Cappuccino - {self.prices[2]: .2f}USD")
+        for coff in coffee:
+            print(f"{coff["id"]:}. {coff['flavour']: <20} - {coff['price']:.2f}USD")
         print("*" * 45)
 
     def attempt_purchase(self) -> dict:
@@ -92,26 +93,25 @@ class CoffeeMachine:
             # Get the coffee type or operating mode
             while True:
                 self.get_menu()
+
                 coffee_chosen = input("What would you like? ").strip().lower()
-                match coffee_chosen:
-                    case "espresso" | "1":
-                        coffee_id = 1
+                for coffee_type in coffee:
+                    if coffee_chosen == coffee_type["flavour"].lower() or coffee_chosen == str(coffee_type["id"]):
+                        coffee_id = coffee_type["id"]
                         break
-                    case "latte" | "2":
-                        coffee_id = 2
-                        break
-                    case "cappuccino" | "3":
-                        coffee_id = 3
-                        break
-                    case "report":
-                        self.get_report()
-                        return {"success": True, "mode": "report"}
-                    case "terminate_pass_512":
-                        return {"success": True, "mode": "terminate"}
-                    case _:
-                        clear_screen()
-                        print("Sorry, that's not a valid option", end="\n\n")
-                        continue
+
+                if coffee_id == 0:
+                    match coffee_chosen:
+                        case "report":
+                            self.get_report()
+                            return {"success": True, "mode": "report"}
+                        case "terminate_pass_512":
+                            return {"success": True, "mode": "terminate"}
+                        case _:
+                            clear_screen()
+                            print("Sorry, that's not a valid option", end="\n\n")
+                            continue
+                break
 
             # Verifies if the machine has enough resources to produce the type of coffee requested by the costumer
             check_resources_response: dict = self.check_resources(coffee_id)
