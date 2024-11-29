@@ -13,10 +13,10 @@ class CoffeeMachine:
         self.water_amount: int = 3000
         self.milk_amount: int = 2000
         self.coffee_amount: int = 1500
-        self.coins: list[dict] = [{"id": 1, "count": 10, "value": Decimal("0.01"), "name": "Pennies"},
-                                  {"id": 2, "count": 2, "value": Decimal("0.05"), "name": "Nickel"},
-                                  {"id": 3, "count": 3, "value": Decimal("0.10"), "name": "Dimes"},
-                                  {"id": 4, "count": 16, "value": Decimal("0.25"), "name": "Quarters"}, ]
+        self.coins: list[dict] = [{"id": 1, "count": 50, "value": Decimal("0.01"), "name": "Pennies"},
+                                  {"id": 2, "count": 50, "value": Decimal("0.05"), "name": "Nickel"},
+                                  {"id": 3, "count": 50, "value": Decimal("0.10"), "name": "Dimes"},
+                                  {"id": 4, "count": 50, "value": Decimal("0.25"), "name": "Quarters"}, ]
         self.money: Decimal = Decimal("0")
         self.set_money()
         self.prices: list = []
@@ -87,10 +87,11 @@ class CoffeeMachine:
         """
         try:
             getcontext().prec = 9
-            self.get_menu()
 
             coffee_id: int = 0
+            # Get the coffee type or operating mode
             while True:
+                self.get_menu()
                 coffee_chosen = input("What would you like? ").strip().lower()
                 match coffee_chosen:
                     case "espresso" | "1":
@@ -108,9 +109,11 @@ class CoffeeMachine:
                     case "terminate_pass_512":
                         return {"success": True, "mode": "terminate"}
                     case _:
+                        clear_screen()
                         print("Sorry, that's not a valid option", end="\n\n")
                         continue
 
+            # Verifies if the machine has enough resources to produce the type of coffee requested by the costumer
             check_resources_response: dict = self.check_resources(coffee_id)
             if check_resources_response["success"] is False:
                 return {"success": False, "mode": "buy"}
@@ -118,6 +121,7 @@ class CoffeeMachine:
 
             coffee_object = [element for element in coffee if coffee_id == element["id"]][0]
 
+            # Verifies if the machine has enough money to give the costumer his/hers change
             money_inserted: Decimal = Decimal(0)
             coin_count: list[dict] = [{"id": 1, "name": "pennies", "count": 0, "value": Decimal("0.01")},
                                       {"id": 2, "name": "nickels", "count": 0, "value": Decimal("0.05")},
@@ -224,7 +228,7 @@ class CoffeeMachine:
             If there is enough change, the boolean will be set to true
         """
         try:
-            getcontext().prec = 6
+            getcontext().prec = 9
             if change_value == 0:
                 return {"success": True, "coins_to_remove": []}
 
