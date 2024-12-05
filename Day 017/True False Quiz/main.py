@@ -34,7 +34,7 @@ if __name__ == '__main__':
         exit(1)
 
     quiz = Quiz(question_bank)
-    for i in range(len(quiz.questions)):
-        quiz.ask_questions(i)
-        clear_screen()
+    quiz.start_quiz()
+    clear_screen()
     quiz.get_results()
+    input("Press anything to exit the program...")
