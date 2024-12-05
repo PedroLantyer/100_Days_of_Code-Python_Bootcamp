@@ -7,7 +7,12 @@ import random
 
 def set_questions() -> list[Question] | None:
     """
-    Create an Array containing all questions
+    Create a randomized array containing all questions
+
+    Returns:
+        :rtype: (list[Question], None):
+        - An array with all questions.
+        - If the function fails, return None
     """
     try:
         question_arr: list[dict] = question_data

@@ -18,15 +18,28 @@ class Quiz:
             clear_screen()
 
     def add_remaining_results(self):
+        """
+        If the user decides to quit the quiz, mark the results for all remaining questions as wrong.
+        """
         remaining = len(self.questions) - len(self.results)
         for i in range(remaining):
             question_id: int = len(self.results)+1
             self.results.append({"id": question_id, "correct": "X"})
 
     def add_question_result(self, question_id: int, is_correct: bool):
+        """
+        Adds an object to the results array, which defines if the user has entered the correct result for the question
+
+        Parameters:
+            question_id (int): The id of the question
+            is_correct (bool): Whether the user has entered the correct answer
+        """
         self.results.append({"id": question_id, "correct": "✔" if is_correct else "X"})
 
     def get_results(self):
+        """
+        Prints the results of the quiz.
+        """
         print("-" * 60)
         print(f"Name: {self.current_player.username}")
         print(f"Score: {self.current_player.score} / {len(self.questions)}")
@@ -42,6 +55,7 @@ class Quiz:
             question_number (int): The question number
 
         Returns:
+            :rtype: (None, str):
             - None if question is answered
             - "QUIT" if user quits
         """
