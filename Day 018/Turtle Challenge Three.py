@@ -1,4 +1,3 @@
-import math
 import secrets
 import turtle
 
@@ -52,13 +51,6 @@ def get_random_colors():
     return color_tuple
 
 
-def draw_triangle(tim: turtle.Turtle, hypotenuse: int):
-    catethus: float = math.sqrt((hypotenuse ** 2) / 2)
-    for i in range(3):
-        tim.left((i+1) * 45) if i == 0 else tim.right((i+1) * 45)
-        tim.forward(hypotenuse if i == 2 else catethus)
-
-
 def draw_polygon(tim: turtle.Turtle, side_size: int, side_count: int):
     """
     Draws a polygon
@@ -85,8 +77,7 @@ if __name__ == "__main__":
         exit(1)
 
     walking_distance = 60
-    draw_triangle(timmy, walking_distance)
-    for i in range(4, 11):
+    for i in range(3, 11):
         colors = get_random_colors()
         timmy.pencolor(colors)
         draw_polygon(timmy, walking_distance, i)
