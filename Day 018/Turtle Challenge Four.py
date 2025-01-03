@@ -9,7 +9,7 @@ EAST_BOUNDARY: int = math.floor((SCREEN_WIDTH / 2) * 0.8)
 WEST_BOUNDARY: int = EAST_BOUNDARY * (-1)
 NORTH_BOUNDARY: int = math.floor((SCREEN_HEIGHT / 2) * 0.8)
 SOUTH_BOUNDARY: int = NORTH_BOUNDARY * (-1)
-WALKING_DISTANCE: int = 100
+WALKING_DISTANCE: int = 35
 
 
 def get_random_color():
