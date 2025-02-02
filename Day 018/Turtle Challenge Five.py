@@ -2,7 +2,7 @@ import secrets
 import turtle
 import math
 
-BACK_GROUND_COLOR: tuple[int, int, int] = (125, 124, 124)
+BACKGROUND_COLOR: tuple[int, int, int] = (125, 124, 124)
 SCREEN_WIDTH: int = 720
 SCREEN_HEIGHT: int = 480
 
@@ -12,7 +12,7 @@ def create_screen():
         screen = turtle.Screen()
         screen.screensize(SCREEN_WIDTH, SCREEN_HEIGHT)
         screen.colormode(255)
-        screen.bgcolor(BACK_GROUND_COLOR)
+        screen.bgcolor(BACKGROUND_COLOR)
         return screen
     except Exception as error:
         print(error)
@@ -47,7 +47,7 @@ def get_random_color():
         tuple[int, int, int]: a tuple containing the RGB values.
     """
     colors: tuple[int, int, int] = (secrets.choice([0, 255]), secrets.choice([0, 255]), secrets.choice([0, 255]))
-    if colors == BACK_GROUND_COLOR:
+    if colors == BACKGROUND_COLOR:
         black: tuple[int, int, int] = (0, 0, 0)
         return black
     return colors
