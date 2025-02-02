@@ -29,7 +29,7 @@ def create_turtle(move_speed: int | str = "fast", line_thickness: int = 13, turt
         turtle_color(str): the color of the turtle. An RGB Hex string
     """
     try:
-        tim = turtle.Turtle(shape="turtle")
+        tim = turtle.Turtle()
         tim.color(turtle_color)
         tim.speed(move_speed)
         tim.pensize(line_thickness)
