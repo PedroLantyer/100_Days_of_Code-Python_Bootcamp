@@ -89,7 +89,7 @@ def create_turtle(move_speed: int | str = "fast", line_thickness: int = 13, turt
         return None
 
 
-def main():
+if __name__ == "__main__":
     screen = create_screen()
     if screen is None:
         exit(1)
@@ -107,6 +107,3 @@ def main():
 
     screen.exitonclick()
     exit(0)
-
-
-main()
