@@ -53,12 +53,15 @@ def get_random_color():
     return colors
 
 
-def draw_spirograph(circle_width: int = 80, move_count: int = 36):
+def draw_spirograph(circle_width: int = 80, move_count: int = 36, hide_turtle_after_finish: bool = True):
     turn_angle = math.ceil(360 / move_count)
     for i in range(move_count):
         tim.pencolor(get_random_color())
         tim.circle(circle_width)
         tim.right(turn_angle)
+
+    if hide_turtle_after_finish:
+        tim.hideturtle()
 
 
 if __name__ == "__main__":
