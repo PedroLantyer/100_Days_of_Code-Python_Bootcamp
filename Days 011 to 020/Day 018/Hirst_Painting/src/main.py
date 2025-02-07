@@ -91,7 +91,7 @@ if __name__ == '__main__':
     if tim is None:
         exit(1)
 
-    tim.teleport(x=START_POSITION["x"], y=START_POSITION["y"]) # Set the starting position for the turtle
+    tim.teleport(x=START_POSITION["x"], y=START_POSITION["y"])  # Set the starting position for the turtle
     tim.penup()  # Prevent line drawing
 
     draw_painting(tim=tim, colors=colors)
