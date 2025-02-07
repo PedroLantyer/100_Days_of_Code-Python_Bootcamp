@@ -3,16 +3,16 @@ import turtle
 import math
 
 BACKGROUND_COLOR: tuple[int, int, int] = (125, 124, 124)
-SCREEN_WIDTH: int = 720
-SCREEN_HEIGHT: int = 480
+SCREEN_DIMENSIONS: dict = {"width": 720, "height": 600}
 
 
 def create_screen():
     try:
         screen = turtle.Screen()
-        screen.screensize(SCREEN_WIDTH, SCREEN_HEIGHT)
+        screen.setup(SCREEN_DIMENSIONS["width"], SCREEN_DIMENSIONS["height"])
         screen.colormode(255)
         screen.bgcolor(BACKGROUND_COLOR)
+        screen.title("Turtle Challenge 05 - Spirograph")
         return screen
     except Exception as error:
         print(error)

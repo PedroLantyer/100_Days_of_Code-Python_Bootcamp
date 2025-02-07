@@ -1,17 +1,26 @@
 import secrets
 import turtle
 
-BACKGROUND_COLOR = (125, 124, 124)
+BACKGROUND_COLOR: tuple[int, int, int] = (125, 124, 124)
+START_POSITION: dict = {"x": 40, "y": 100}
 
 
-def create_turtle(color: str = "red", pen_color: str = "black", start_pos: tuple[int, int] | None = None):
+def create_screen():
+    screen = turtle.Screen()
+    screen.colormode(255)
+    screen.bgcolor(BACKGROUND_COLOR)
+    screen.title("Turtle Challenge 03 - Polygon Sequence")
+    screen.setup(width=600, height=600)
+    return screen
+
+
+def create_turtle(color: str = "red", pen_color: str = "black"):
     """
     Creates a turtle
 
     Args:
         color (str): Color of the turtle.
         pen_color (str): The color used to draw lines.
-        start_pos (tuple[int, int]): A tuple containing the starting X and Y coordinates for the turtle.
 
     Returns:
         :rtype: (turtle.Turtle, None):
@@ -19,12 +28,10 @@ def create_turtle(color: str = "red", pen_color: str = "black", start_pos: tuple
         - If the function fails, return None
     """
     try:
-        if start_pos is None:
-            start_pos = (-100, 100)
         tim = turtle.Turtle(shape="turtle")
         tim.color(color)
         tim.pencolor(pen_color)
-        tim.teleport(x=start_pos[0], y=start_pos[1])
+        tim.teleport(x=START_POSITION["x"], y=START_POSITION["y"])
         return tim
 
     except Exception as err:
@@ -68,11 +75,9 @@ def draw_polygon(tim: turtle.Turtle, side_size: int, side_count: int):
 
 
 if __name__ == "__main__":
-    screen = turtle.Screen()
-    screen.colormode(255)
-    screen.bgcolor(BACKGROUND_COLOR)
+    screen = create_screen()
 
-    timmy: turtle.Turtle | None = create_turtle()
+    timmy = create_turtle()
     if timmy is None:
         exit(1)
 

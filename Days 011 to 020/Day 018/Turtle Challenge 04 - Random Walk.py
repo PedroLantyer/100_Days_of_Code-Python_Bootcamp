@@ -3,11 +3,10 @@ import turtle
 import math
 
 BACKGROUND_COLOR: tuple[int, int, int] = (125, 124, 124)
-SCREEN_WIDTH: int = 720
-SCREEN_HEIGHT: int = 480
-EAST_BOUNDARY: int = math.floor((SCREEN_WIDTH / 2) * 0.8)
+SCREEN_DIMENSIONS: dict = {"width": 600, "height": 600}
+EAST_BOUNDARY: int = math.floor((SCREEN_DIMENSIONS["width"] / 2) * 0.8)
 WEST_BOUNDARY: int = EAST_BOUNDARY * (-1)
-NORTH_BOUNDARY: int = math.floor((SCREEN_HEIGHT / 2) * 0.8)
+NORTH_BOUNDARY: int = math.floor((SCREEN_DIMENSIONS["height"] / 2) * 0.8)
 SOUTH_BOUNDARY: int = NORTH_BOUNDARY * (-1)
 WALKING_DISTANCE: int = 35
 
@@ -60,9 +59,10 @@ def get_random_movement(tim: turtle.Turtle, walking_distance: int):
 def create_screen():
     try:
         screen = turtle.Screen()
-        screen.screensize(SCREEN_WIDTH, SCREEN_HEIGHT)
+        screen.setup(SCREEN_DIMENSIONS["width"], SCREEN_DIMENSIONS["height"])
         screen.colormode(255)
         screen.bgcolor(BACKGROUND_COLOR)
+        screen.title("Turtle Challenge 04 - Random Walk")
         return screen
     except Exception as error:
         print(error)
@@ -89,6 +89,13 @@ def create_turtle(move_speed: int | str = "fast", line_thickness: int = 13, turt
         return None
 
 
+def random_walk(tim: turtle.Turtle, move_count: int = 200):
+    for i in range(move_count):
+        new_color: tuple[int, int, int] = get_random_color()
+        tim.pencolor(new_color)
+        get_random_movement(tim, WALKING_DISTANCE)
+
+
 if __name__ == "__main__":
     screen = create_screen()
     if screen is None:
@@ -98,12 +105,7 @@ if __name__ == "__main__":
     if tim is None:
         exit(1)
 
-    move_count: int = 200
-
-    for i in range(move_count):
-        new_color: tuple[int, int, int] = get_random_color()
-        tim.pencolor(new_color)
-        get_random_movement(tim, WALKING_DISTANCE)
+    random_walk(tim)
 
     screen.exitonclick()
     exit(0)
