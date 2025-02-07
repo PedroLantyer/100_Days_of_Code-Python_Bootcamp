@@ -96,3 +96,4 @@ if __name__ == '__main__':
 
     draw_painting(tim=tim, colors=colors)
     screen.exitonclick()
+    exit(0)
