@@ -1,7 +1,7 @@
 import secrets
 import turtle
 
-BACK_GROUND_COLOR = (125, 124, 124)
+BACKGROUND_COLOR = (125, 124, 124)
 
 
 def create_turtle(color: str = "red", pen_color: str = "black", start_pos: tuple[int, int] | None = None):
@@ -45,7 +45,7 @@ def get_random_colors():
         color: int = secrets.choice([0, 255])
         colors.append(color)
     color_tuple = tuple(colors)
-    if color_tuple == BACK_GROUND_COLOR:
+    if color_tuple == BACKGROUND_COLOR:
         black: tuple[int, int, int] = (0, 0, 0)
         return black
     return color_tuple
@@ -70,7 +70,7 @@ def draw_polygon(tim: turtle.Turtle, side_size: int, side_count: int):
 if __name__ == "__main__":
     screen = turtle.Screen()
     screen.colormode(255)
-    screen.bgcolor(BACK_GROUND_COLOR)
+    screen.bgcolor(BACKGROUND_COLOR)
 
     timmy: turtle.Turtle | None = create_turtle()
     if timmy is None:
